@@ -13,15 +13,13 @@ class Key_listener:
 
     def on_press(self, key):
         if key in self.valid_keys:
-            print('{0} pressed'.format(key))
+            # print('{0} pressed'.format(key))
             self.operation[0] = key
 
     def on_release(self, key):
         if key in self.valid_keys:
-            print('{0} release'.format(key))
+            # print('{0} release'.format(key))
             self.operation[0] = key
-
-        print("operation in listener", id(self.operation))
 
         if key == Key.esc:
             raise GameEnd
@@ -54,7 +52,6 @@ class Glutonous_Snake:
         try:
             self.key_listener.start()
             while(True):
-                print("operation in game", id(self.cur_operation))
 
                 if self.cur_operation[0]:
                     move_direction = self.direction_dict[self.cur_operation[0]]
@@ -80,5 +77,5 @@ if __name__ == "__main__":
     #     print(i)
     # listener.join()
 
-    game = Glutonous_Snake(10, 10)
+    game = Glutonous_Snake(5, 5)
     game.start()

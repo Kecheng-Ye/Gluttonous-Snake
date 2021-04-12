@@ -35,23 +35,22 @@ class board:
     def Snake_initialize(self):
         # add snake
         # snake_init_h, snake_init_w = choice(tuple(self.empty_spot))
-        snake_init_h, snake_init_w = 1, 1
+        snake_init_h, snake_init_w = 0, 0
         Snake_head = Snake_Node(snake_init_h, snake_init_w)
         self.empty_spot.remove((snake_init_h, snake_init_w))
         self.Snake = Snake(head = Snake_head, end = None)
 
 
-    def Fruit_intialize(self):
+    def Fruit_random_generate(self):
         # add fruit
-        # fruit_init_h, fruit_init_w = choice(tuple(self.empty_spot))
-        fruit_init_h, fruit_init_w = 1, 2
+        fruit_init_h, fruit_init_w = choice(tuple(self.empty_spot))
         self.Fruit_lst.add((fruit_init_h, fruit_init_w))
         self.empty_spot.remove((fruit_init_h, fruit_init_w))
 
 
     def game_initialize(self):
         self.Snake_initialize()
-        self.Fruit_intialize()
+        self.Fruit_random_generate()
         self.Update_board()
 
 
@@ -77,7 +76,8 @@ class board:
 
 
     def Snake_move(self, Direction : str):
-        self.Snake.move(Direction, self.empty_spot, self.Fruit_lst)
+        if self.Snake.move(Direction, self.empty_spot, self.Fruit_lst):
+            self.Fruit_random_generate()
 
 
     def Check_coordinate(self, h, w):
@@ -86,6 +86,8 @@ class board:
                 return
         
         raise GameBoardIndexError("index [{} {}] is invalid in Board ({}x{})".format(h, w, self.width, self.height))
+
+
 class Snake:
 
     def __init__(self,
@@ -169,13 +171,13 @@ class Snake:
              empty_spot : set = None,
              Fruit_lst : set = None):
         
+        Eat_fruit = False
         end_h, end_w = self.end.get_coordinates()
-
-        for node in self:
-            if node == self.head:
-                continue
-            else:
-                node.set(*node.prev.get_coordinates())
+        
+        node = self.end
+        while node != self.head:
+            node.set(*node.prev.get_coordinates())
+            node = node.prev
 
         if direction in Direction_dict:
             h_movement, w_movement = Direction_dict[direction]
@@ -191,9 +193,12 @@ class Snake:
             if Fruit_lst and self.head.get_coordinates() in Fruit_lst:
                 Fruit_lst.remove(self.head.get_coordinates())
                 self.grow(direction, empty_spot)
+                Eat_fruit = True
 
             else:
                 empty_spot.remove(self.head.get_coordinates())
+        
+        return Eat_fruit
 
 
 if __name__ == "__main__":

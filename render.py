@@ -21,11 +21,16 @@ class Render_engine:
     
 if __name__ == "__main__":
     engine = Render_engine()
-    board = board(3, 3)
+    board = board(5, 5)
     # board.Fruit_lst = [(1, 2)]
     board.Update_board()
     engine.render_terminal(board)
-    print(len(board.empty_spot))
+
+    board.Snake_grow("up")
+    board.Snake_grow("up")
+    board.Update_board()
+    engine.render_terminal(board)
+    # print(len(board.empty_spot))
 
     # board.Snake_grow("right")
     # board.Update_board()
@@ -35,7 +40,7 @@ if __name__ == "__main__":
     board.Snake_move("right")
     board.Update_board()
     engine.render_terminal(board)
-    print(len(board.empty_spot))
+    # print(len(board.empty_spot))
 
     # board.Snake_move("up")
     # board.Update_board()
