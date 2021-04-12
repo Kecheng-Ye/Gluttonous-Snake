@@ -6,7 +6,10 @@ Direction_dict = dict(left     = (0, -1),
                       right    = (0, 1),
                       down     = (1, 0))
 
-class GameBoardIndexError(Exception):
+class GameEnd(Exception):
+    pass
+
+class GameBoardIndexError(GameEnd):
     pass
 
 class board:
@@ -18,7 +21,7 @@ class board:
         self.game_board = []
         self.empty_spot = set()
         self.Snake = None
-        self.Fruit_lst = []
+        self.Fruit_lst = set()
 
         for i in range(self.height):
             self.game_board.append([])
@@ -31,7 +34,8 @@ class board:
 
     def Snake_initialize(self):
         # add snake
-        snake_init_h, snake_init_w = choice(tuple(self.empty_spot))
+        # snake_init_h, snake_init_w = choice(tuple(self.empty_spot))
+        snake_init_h, snake_init_w = 1, 1
         Snake_head = Snake_Node(snake_init_h, snake_init_w)
         self.empty_spot.remove((snake_init_h, snake_init_w))
         self.Snake = Snake(head = Snake_head, end = None)
@@ -39,8 +43,9 @@ class board:
 
     def Fruit_intialize(self):
         # add fruit
-        fruit_init_h, fruit_init_w = choice(tuple(self.empty_spot))
-        self.Fruit_lst.append((fruit_init_h, fruit_init_w))
+        # fruit_init_h, fruit_init_w = choice(tuple(self.empty_spot))
+        fruit_init_h, fruit_init_w = 1, 2
+        self.Fruit_lst.add((fruit_init_h, fruit_init_w))
         self.empty_spot.remove((fruit_init_h, fruit_init_w))
 
 
@@ -162,7 +167,7 @@ class Snake:
     def move(self, 
              direction : str,
              empty_spot : set = None,
-             Fruit_lst : list = None):
+             Fruit_lst : set = None):
         
         end_h, end_w = self.end.get_coordinates()
 
@@ -182,10 +187,14 @@ class Snake:
 
         if empty_spot:
             empty_spot.add((end_h, end_w))
-            empty_spot.remove(self.head.get_coordinates())
 
-        if Fruit_lst and self.head.get_coordinates() in Fruit_lst:
-            self.grow(direction, empty_spot)
+            if Fruit_lst and self.head.get_coordinates() in Fruit_lst:
+                Fruit_lst.remove(self.head.get_coordinates())
+                self.grow(direction, empty_spot)
+
+            else:
+                empty_spot.remove(self.head.get_coordinates())
+
 
 if __name__ == "__main__":
     # board = board(2, 2)
