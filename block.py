@@ -20,7 +20,7 @@ class Base_Block(ABC):
 
     @abstractmethod
     def render_terminal(self):
-        return NotImplemented
+        return NotImplementedError
 
 
 class Empty_Spot(Base_Block):
