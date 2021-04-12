@@ -23,7 +23,19 @@ if __name__ == "__main__":
     engine = Render_engine()
     board = board(5, 5)
     engine.render_terminal(board)
-    print(board.empty_spot)
-    board.Snake_grow(Direction.right)
+    print(len(board.empty_spot))
+
+    board.Snake_grow("right")
     board.Update_board()
     engine.render_terminal(board)
+    print(len(board.empty_spot))
+
+    board.Snake_move("right")
+    board.Update_board()
+    engine.render_terminal(board)
+    print(len(board.empty_spot))
+
+    board.Snake_move("up")
+    board.Update_board()
+    engine.render_terminal(board)
+    print(len(board.empty_spot))

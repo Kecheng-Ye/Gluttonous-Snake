@@ -12,11 +12,18 @@ class Base_Block(ABC):
     def __str__(self):
         return "This is a based object block with coordinate [{}, {}]".format(self.x, self.y)
 
-    def get_coordinates(self):
-        return self.x, self.y
 
     def __repr__(self):
         return self.__str__()
+
+
+    def get_coordinates(self):
+        return self.x, self.y
+
+
+    def set(self, x, y):
+        self.x = x
+        self.y = y
 
     @abstractmethod
     def render_terminal(self):

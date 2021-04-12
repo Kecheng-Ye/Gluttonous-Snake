@@ -1,12 +1,13 @@
 from block import *
-from random import choice, randrange
-import enum
+from random import choice
 
-class Direction(enum.Enum):
-   left     = 1
-   up       = 2
-   right    = 3
-   down     = 4
+Direction_dict = dict(left     = (0, -1),
+                      up       = (-1, 0),
+                      right    = (0, 1),
+                      down     = (1, 0))
+
+class GameBoardIndexError(Exception):
+    pass
 
 class board:
 
@@ -30,8 +31,7 @@ class board:
 
     def Snake_initialize(self):
         # add snake
-        # snake_init_h, snake_init_y = choice(tuple(self.empty_spot))
-        snake_init_h, snake_init_w = (0, 1)
+        snake_init_h, snake_init_w = choice(tuple(self.empty_spot))
         Snake_head = Snake_Node(snake_init_h, snake_init_w)
         self.empty_spot.remove((snake_init_h, snake_init_w))
         self.Snake = Snake(head = Snake_head, end = None)
@@ -55,19 +55,32 @@ class board:
 
         for snake_node in self.Snake:
             h, w = snake_node.get_coordinates()
+            self.Check_coordinate(h, w)
             new_board[h][w] = snake_node
         
         for fruit in self.Fruit_lst:
             h, w = fruit
+            self.Check_coordinate(h, w)
             new_board[h][w] = Fruit_Spot(h, w)
         
         self.game_board = new_board
 
 
     def Snake_grow(self,
-                   Direction : Direction):
-        
+                   Direction : str):
         self.Snake.grow(Direction, self.empty_spot)
+
+
+    def Snake_move(self, Direction : str):
+        self.Snake.move(Direction, self.empty_spot, self.Fruit_lst)
+
+
+    def Check_coordinate(self, h, w):
+        if h >= 0 and h < self.height:
+            if w >= 0 and w < self.width:
+                return
+        
+        raise GameBoardIndexError("index [{} {}] is invalid in Board ({}x{})".format(h, w, self.width, self.height))
 class Snake:
 
     def __init__(self,
@@ -80,8 +93,10 @@ class Snake:
         self.iter_temp = self.head
         self.length = length
 
+
     def __iter__(self):
         return self
+
 
     def __next__(self):
         if self.iter_temp:
@@ -93,11 +108,26 @@ class Snake:
             self.iter_temp = self.head
             raise StopIteration
 
+
     def __len__(self):
         return self.length
 
+
+    def __str__(self):
+        result = ""
+        for node in self:
+            result += node.__str__()
+            result += "\n"
+        
+        return result
+
+
+    def __repr__(self):
+        return self.__str__()
+
+
     def grow(self,
-             direction: Direction,
+             direction : str,
              empty_spot : set = None):
 
         if self.head != self.end:
@@ -117,33 +147,45 @@ class Snake:
 
         else:
             head_h, head_w = self.head.get_coordinates()
-            if direction == Direction.left:
-                new_tail = Snake_Node(head_h, head_w + 1)
-            elif direction == Direction.right:
-                new_tail = Snake_Node(head_h, head_w - 1)
-            elif direction == Direction.up:
-                new_tail = Snake_Node(head_h + 1, head_w)
-            elif direction == Direction.up:
-                new_tail = Snake_Node(head_h - 1, head_w)
+            if direction in Direction_dict:
+                h_movement, w_movement = Direction_dict[direction]
+                new_tail = Snake_Node(head_h - h_movement, head_w - w_movement)
             else:
                 raise NotImplementedError
-        
+
         self.end.connect(new_tail)
         self.end = new_tail
         self.length += 1
         if empty_spot:
             empty_spot.remove(self.end.get_coordinates())
 
-    def __str__(self):
-        result = ""
-        for node in self:
-            result += node.__str__()
-            result += "\n"
+    def move(self, 
+             direction : str,
+             empty_spot : set = None,
+             Fruit_lst : list = None):
         
-        return result
+        end_h, end_w = self.end.get_coordinates()
 
-    def __repr__(self):
-        return self.__str__()
+        for node in self:
+            if node == self.head:
+                continue
+            else:
+                node.set(*node.prev.get_coordinates())
+
+        if direction in Direction_dict:
+            h_movement, w_movement = Direction_dict[direction]
+            head_h, head_w = self.head.get_coordinates()
+            self.head.set(head_h + h_movement, head_w + w_movement)
+
+        else:
+            raise NotImplementedError
+
+        if empty_spot:
+            empty_spot.add((end_h, end_w))
+            empty_spot.remove(self.head.get_coordinates())
+
+        if Fruit_lst and self.head.get_coordinates() in Fruit_lst:
+            self.grow(direction, empty_spot)
 
 if __name__ == "__main__":
     # board = board(2, 2)
@@ -156,10 +198,10 @@ if __name__ == "__main__":
 
     # Snake = Snake(test_sanke1, test_sanke3)
 
-    test_sanke1 = Snake_Node(5, 5)
-    Snake = Snake(test_sanke1)
+    # test_sanke1 = Snake_Node(5, 5)
+    # Snake = Snake(test_sanke1)
 
-    Snake.grow(Direction.right)
+    # Snake.grow(Direction.right)
     # print(Snake)
 
     # print("************")
@@ -168,4 +210,4 @@ if __name__ == "__main__":
     # print(Snake)
     # for node in Snake:
     #     print(node)
-
+    pass
