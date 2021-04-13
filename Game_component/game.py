@@ -1,5 +1,5 @@
 import time
-
+from datetime import datetime
 from pysigset import suspended_signals
 
 from .board import *
@@ -34,15 +34,20 @@ class Glutonous_Snake:
             print("Game end because player press 'ESC'")
     
     def update(self, num = None, stack = None):
+        # now = datetime.now()
+        # print("now =", now)
+        # with suspended_signals(signal.SIGUSR1):
+        
         if self.cur_operation[0]:
+            # print("Snake head {} with operation {}".format(self.game_board.Snake.head.get_coordinates(), self.cur_operation))
             move_direction = self.direction_dict[self.cur_operation[0]]
             self.game_board.Snake_move(move_direction)
+            
+        self.game_board.Update_board()
         
-        with suspended_signals(signal.SIGUSR1):
-            self.game_board.Update_board()
-
         self.render_engine.render_terminal(self.game_board)
-        time.sleep(0.2)
+        
+        time.sleep(0.15)
 
     def game_end(self, num = None, stack = None):
         raise GameEnd
