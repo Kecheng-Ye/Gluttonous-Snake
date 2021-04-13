@@ -20,4 +20,4 @@ class Bounds_checker:
         else:
             return False
 
-
+# TODO: implement a generic version of direction
