@@ -1,8 +1,11 @@
-from utils import *
-from pynput.keyboard import Key, Listener
-import threading
-import signal
 import os
+import signal
+import threading
+
+from pynput.keyboard import Key, Listener
+
+from .utils import *
+
 
 class Key_listener:
 

@@ -42,7 +42,7 @@ class Empty_Spot(Base_Block):
         return "This is a empty spot with coordinate [{}, {}]".format(self.x, self.y)
 
     def render_terminal(self):
-        return "*"
+        return " "
 
 class Snake_Node(Base_Block):
 

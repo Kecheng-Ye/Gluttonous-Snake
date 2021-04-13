@@ -1,8 +1,10 @@
-from board import *
-from render import *
-from Keyboard_control import *
 import time
+
 from pysigset import suspended_signals
+
+from .board import *
+from .Keyboard_control import *
+from .render import *
 
 
 class Glutonous_Snake:

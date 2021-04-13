@@ -1,7 +1,7 @@
-from block import *
-from utils import *
 from random import choice
 
+from .block import *
+from .utils import *
 
 Direction_dict = dict(left     = (0, -1),
                       up       = (-1, 0),

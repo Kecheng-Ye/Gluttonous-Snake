@@ -1,4 +1,4 @@
-from board import *
+from .board import *
 
 class Render_engine:
 
