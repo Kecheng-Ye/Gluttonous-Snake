@@ -9,17 +9,24 @@ class Key_listener:
     def __init__(self, operation):
         self.listener_thread = threading.Thread(target=self.listen, daemon=True)
         self.valid_keys = set([Key.left, Key.right, Key.up, Key.down])
+        self.opposite_direction = {Key.left : Key.right, 
+                                   Key.up : Key.down,
+                                   Key.right : Key.left,
+                                   Key.down : Key.up}
         self.operation = operation
 
     def on_press(self, key):
         if key in self.valid_keys and key != self.operation[0]:
-            self.operation[0] = key
+            if not self.operation[0] or key != self.opposite_direction[self.operation[0]]:
+                self.operation[0] = key
+
 
     def on_release(self, key):
         if key in self.valid_keys and key != self.operation[0]:
-            self.operation[0] = key
-            os.kill(os.getpid(), signal.SIGUSR1)
-            return
+            if not self.operation[0] or key != self.opposite_direction[self.operation[0]]:
+                self.operation[0] = key
+                os.kill(os.getpid(), signal.SIGUSR1)
+
         elif key == Key.esc:
             os.kill(os.getpid(), signal.SIGUSR2)
 

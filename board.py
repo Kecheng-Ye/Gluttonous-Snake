@@ -211,7 +211,7 @@ class Snake:
             head_h, head_w = self.head.get_coordinates()
 
             if Bounds_checker:
-                Bounds_checker.Check_coordinate(head_h + h_movement, head_w + w_movement)
+                Bounds_checker.Check_coordinate(head_h + h_movement, head_w + w_movement, error_message = "Snake crash on boundary")
 
             self.head.set(head_h + h_movement, head_w + w_movement)
         else:
@@ -226,7 +226,8 @@ class Snake:
                 self.grow(direction, empty_spot, Bounds_checker)
                 Eat_fruit = True
             else:
-                # TODO: eat myself scenario does not handel
+                if self.head.get_coordinates() not in empty_spot:
+                    raise GameBoardIndexError("Snake eat itself")
                 empty_spot.remove(self.head.get_coordinates())
         
         return Eat_fruit

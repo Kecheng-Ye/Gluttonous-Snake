@@ -2,6 +2,7 @@ from board import *
 from render import *
 from Keyboard_control import *
 import time
+from pysigset import suspended_signals
 
 
 class Glutonous_Snake:
@@ -24,20 +25,22 @@ class Glutonous_Snake:
             while(True):
                 self.update()
 
-        except GameBoardIndexError:
-            print("Snake crash, end")
+        except GameBoardIndexError as error:
+            print("Snake crash because", str(error))
 
         except GameEnd:
-            print("Game end")
+            print("Game end because player press 'ESC'")
     
     def update(self, num = None, stack = None):
         if self.cur_operation[0]:
             move_direction = self.direction_dict[self.cur_operation[0]]
             self.game_board.Snake_move(move_direction)
         
-        self.game_board.Update_board()
+        with suspended_signals(signal.SIGUSR1):
+            self.game_board.Update_board()
+
         self.render_engine.render_terminal(self.game_board)
-        time.sleep(0.5)
+        time.sleep(0.2)
 
     def game_end(self, num = None, stack = None):
         raise GameEnd
