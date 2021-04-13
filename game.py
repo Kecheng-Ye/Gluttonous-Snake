@@ -1,39 +1,7 @@
 from board import *
 from render import *
-from pynput.keyboard import Key, Listener
-import threading
+from Keyboard_control import *
 import time
-
-class Key_listener:
-
-    def __init__(self, operation):
-        self.listener_thread = threading.Thread(target=self.listen, daemon=True)
-        self.valid_keys = set([Key.left, Key.right, Key.up, Key.down])
-        self.operation = operation
-
-    def on_press(self, key):
-        if key in self.valid_keys:
-            # print('{0} pressed'.format(key))
-            self.operation[0] = key
-
-    def on_release(self, key):
-        if key in self.valid_keys:
-            # print('{0} release'.format(key))
-            self.operation[0] = key
-
-        if key == Key.esc:
-            raise GameEnd
-
-    def listen(self):
-        # Collect events until released
-        with Listener(on_press=self.on_press, on_release=self.on_release) as listener:
-            listener.join()
-
-    def start(self):
-        self.listener_thread.start()
-    
-    def join(self):
-        self.listener_thread.join()
 
 
 class Glutonous_Snake:
@@ -46,20 +14,15 @@ class Glutonous_Snake:
         self.direction_dict = {Key.left : "left", 
                               Key.right : "right", 
                               Key.up    : "up", 
-                              Key.down  : "down"} 
+                              Key.down  : "down"}
+        self.keyboard_signal = signal.signal(signal.SIGUSR1, self.update)
+        self.exit_signal     = signal.signal(signal.SIGUSR2, self.game_end)
 
     def start(self):
         try:
             self.key_listener.start()
             while(True):
-
-                if self.cur_operation[0]:
-                    move_direction = self.direction_dict[self.cur_operation[0]]
-                    self.game_board.Snake_move(move_direction)
-                
-                self.game_board.Update_board()
-                self.render_engine.render_terminal(self.game_board)
-                time.sleep(0.5)
+                self.update()
 
         except GameBoardIndexError:
             print("Snake crash, end")
@@ -67,6 +30,17 @@ class Glutonous_Snake:
         except GameEnd:
             print("Game end")
     
+    def update(self, num = None, stack = None):
+        if self.cur_operation[0]:
+            move_direction = self.direction_dict[self.cur_operation[0]]
+            self.game_board.Snake_move(move_direction)
+        
+        self.game_board.Update_board()
+        self.render_engine.render_terminal(self.game_board)
+        time.sleep(0.5)
+
+    def game_end(self, num = None, stack = None):
+        raise GameEnd
 
 
 if __name__ == "__main__":
@@ -77,5 +51,5 @@ if __name__ == "__main__":
     #     print(i)
     # listener.join()
 
-    game = Glutonous_Snake(5, 5)
+    game = Glutonous_Snake(20, 20)
     game.start()
