@@ -8,7 +8,7 @@ class Base_Block(ABC):
           cannot directly instantiate this class
 
     Args: 
-          x(int): the height coordinate of this block
+          x(int): the height coordinate of this block 
           y(int): the width coordinate of this block
     """
     def __init__(self, 

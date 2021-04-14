@@ -26,20 +26,46 @@ class Render_engine:
         # determine the render function based on the 
         if self.render_platform == 'terminal':
             render_function = self.render_terminal
-
+        # Let the thread run forever in this function
         while True:
+            # if the render engine is start
             if self.show:
+                # then the engine will render the board into specific platform
+                # in every 0.01 sec
                 render_function(self.game_board)
                 time.sleep(0.01)
 
 
     def render_terminal(self, board):
+        """
+        Specific render function for terminal
+        It will basically print the cuurent state of game board 
+        on the terminal 
+
+        Args: 
+              board(board) : the game board of our game
+
+        The example output of a game board(5 x 5):
+        ```
+        -----------
+        |         |
+        |         |
+        |         |
+        |      X  |
+        |        S|
+        -----------
+        ```
+        The `Snake` is denoted with letter `S`
+        and the `Fruit` is shown as `X`
+        """
         result = "-" * (board.width * 2 + 1) + "\n"
 
         for i in range(board.height):
             result += "|"
             for j in range(board.width):
+                # invoke each block's render teriminal function
                 result += board.game_board[i][j].render_terminal()
+                # if reach end of the row, we don't need to add extra space
                 if j < board.width - 1:
                     result += " "
             
@@ -50,16 +76,31 @@ class Render_engine:
         print(result)
     
     def start(self):
+        """
+        Set the show flag to ``TRUE``
+        and start the render_thread
+        """
         self.show = True
         self.render_thread.start()
 
     def pause(self):
+        """
+        Set the show flag to ``FALSE``
+        This can let the render engine to stop rendering without close this thread
+        """
         self.show = False
 
     def restart(self):
+        """
+        Set the show flag back to ``TRUE``
+        and the render engine will continue to render the game board
+        """
         self.show = True
 
     def is_running(self):
+        """
+        Return the status of render engine
+        """
         return self.show
 
 
