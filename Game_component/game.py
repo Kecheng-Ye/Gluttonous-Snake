@@ -42,12 +42,13 @@ class Glutonous_Snake:
             # print("Snake head {} with operation {}".format(self.game_board.Snake.head.get_coordinates(), self.cur_operation))
             move_direction = self.direction_dict[self.cur_operation[0]]
             self.game_board.Snake_move(move_direction)
-            
+        
         self.game_board.Update_board()
+
+        with suspended_signals(signal.SIGUSR1):
+            self.render_engine.render_terminal(self.game_board)
         
-        self.render_engine.render_terminal(self.game_board)
-        
-        time.sleep(0.15)
+        time.sleep(0.1)
 
     def game_end(self, num = None, stack = None):
         raise GameEnd
