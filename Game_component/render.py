@@ -3,16 +3,27 @@ import threading
 import time
 
 class Render_engine:
+    """
+    The render engine class for our game
+    Bascially this class will open a new thread and continously render the game board on different platform (now only support terminal render)
+
+    Args: 
+         render_platform(str) : the platform that our render engine will render the game board on
+         game_board(board)    : the actual game board
+    """
     def __init__(self, render_platform, game_board):
         assert render_platform in ['terminal']
         
         self.render_platform = render_platform
         self.game_board = game_board
+        # the logical flag that stop or start the rendering 
         self.show = False
+        # the actual render thread which will execute the `self.render` function
         self.render_thread = threading.Thread(target=self.render, daemon=True)
 
 
     def render(self):
+        # determine the render function based on the 
         if self.render_platform == 'terminal':
             render_function = self.render_terminal
 
@@ -50,7 +61,8 @@ class Render_engine:
 
     def is_running(self):
         return self.show
-    
+
+
 if __name__ == "__main__":
     engine = Render_engine()
     board = board(5, 5, snake_init_coordinates = [3, 1], fruit_init_coordinates = [3, 2])
