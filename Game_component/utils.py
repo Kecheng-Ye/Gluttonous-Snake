@@ -21,12 +21,7 @@ class Bounds_checker:
         else:
             return False
 
-# TODO: implement a generic version of direction
-
 Direction_dict = dict(left     = (0, -1),
                       up       = (-1, 0),
                       right    = (0, 1),
                       down     = (1, 0))
-
-class Direction:
-    pass

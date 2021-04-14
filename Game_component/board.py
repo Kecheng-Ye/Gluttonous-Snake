@@ -30,6 +30,10 @@ class board:
         self.game_initialize(snake_init_coordinates, fruit_init_coordinates)
     
 
+    def restart(self):
+        self.__init__(self.width, self.height)
+
+
     def Snake_initialize(self, snake_init_coordinates=None):
         # add snake
         if not snake_init_coordinates:

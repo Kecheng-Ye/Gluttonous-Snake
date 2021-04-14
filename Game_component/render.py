@@ -8,6 +8,7 @@ class Render_engine:
         
         self.render_platform = render_platform
         self.game_board = game_board
+        self.show = False
         self.render_thread = threading.Thread(target=self.render, daemon=True)
 
 
@@ -16,8 +17,9 @@ class Render_engine:
             render_function = self.render_terminal
 
         while True:
-            render_function(self.game_board)
-            time.sleep(0.01)
+            if self.show:
+                render_function(self.game_board)
+                time.sleep(0.01)
 
 
     def render_terminal(self, board):
@@ -37,7 +39,17 @@ class Render_engine:
         print(result)
     
     def start(self):
+        self.show = True
         self.render_thread.start()
+
+    def pause(self):
+        self.show = False
+
+    def restart(self):
+        self.show = True
+
+    def is_running(self):
+        return self.show
     
 if __name__ == "__main__":
     engine = Render_engine()
