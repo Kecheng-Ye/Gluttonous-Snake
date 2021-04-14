@@ -1,6 +1,24 @@
 from .board import *
+import threading
+import time
 
 class Render_engine:
+    def __init__(self, render_platform, game_board):
+        assert render_platform in ['terminal']
+        
+        self.render_platform = render_platform
+        self.game_board = game_board
+        self.render_thread = threading.Thread(target=self.render, daemon=True)
+
+
+    def render(self):
+        if self.render_platform == 'terminal':
+            render_function = self.render_terminal
+
+        while True:
+            render_function(self.game_board)
+            time.sleep(0.01)
+
 
     def render_terminal(self, board):
         result = "-" * (board.width * 2 + 1) + "\n"
@@ -17,7 +35,9 @@ class Render_engine:
         result += "-" * (board.width * 2 + 1)
 
         print(result)
-
+    
+    def start(self):
+        self.render_thread.start()
     
 if __name__ == "__main__":
     engine = Render_engine()

@@ -21,17 +21,12 @@ class Key_listener:
     def on_press(self, key):
         if key in self.valid_keys and key != self.operation[0]:
             if not self.operation[0] or key != self.opposite_direction[self.operation[0]]:
-                pass
-
-
-    def on_release(self, key):
-        if key in self.valid_keys and key != self.operation[0]:
-            if not self.operation[0] or key != self.opposite_direction[self.operation[0]]:
-                # print("raise signal")
                 self.operation[0] = key
                 os.kill(os.getpid(), signal.SIGUSR1)
 
-        elif key == Key.esc:
+
+    def on_release(self, key):
+        if key == Key.esc:
             os.kill(os.getpid(), signal.SIGUSR2)
 
     def listen(self):
