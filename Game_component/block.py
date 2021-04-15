@@ -63,10 +63,16 @@ class Empty_Spot(Base_Block):
                  x : int, 
                  y : int):
 
+        # # implement your code below
+        # pass
+
         super(Empty_Spot, self).__init__(x, y)
 
 
     def __str__(self):
+        # # implement your code below
+        # pass
+
         return "This is a empty spot with coordinate [{}, {}]".format(self.x, self.y)
 
 
@@ -74,6 +80,9 @@ class Empty_Spot(Base_Block):
         """
         Specific render method for empty spot
         """
+        # # implement your code below
+        # pass
+
         return " "
 
 class Snake_Node(Base_Block):
@@ -93,13 +102,16 @@ class Snake_Node(Base_Block):
                  y : int,
                  prev = None,
                  next = None):
-
+        # # implement your code below
+        # pass        
         super(Snake_Node, self).__init__(x, y)
         self.prev = prev
         self.next = next
 
 
     def __str__(self):
+        # # implement your code below
+        # pass
         prev_x, prev_y, next_x, next_y = [None] * 4
 
         if self.prev:
@@ -124,6 +136,8 @@ class Snake_Node(Base_Block):
         Args: 
               another_node(Snake_Node): the node that will be connected to the tail of this node
         """
+        # # implement your code below
+        # pass
         self.next = another_node
         another_node.prev = self
 
@@ -132,6 +146,8 @@ class Snake_Node(Base_Block):
         """
         Specific render method for snake spot
         """
+        # # implement your code below
+        # pass
         return "S"
 
 class Fruit_Spot(Base_Block):
@@ -145,15 +161,20 @@ class Fruit_Spot(Base_Block):
     def __init__(self, 
                  x : int, 
                  y : int):
-
+        # # implement your code below
+        # pass
         super(Fruit_Spot, self).__init__(x, y)
 
 
     def __str__(self):
+        # # implement your code below
+        # pass
         return "This is a fruit spot with coordinate [{}, {}]".format(self.x, self.y)
 
 
     def render_terminal(self):
+        # # implement your code below
+        # pass
         """
         Specific render method for snake spot
         """
@@ -162,7 +183,6 @@ class Fruit_Spot(Base_Block):
 if __name__ == "__main__":
     test_block = Snake_Node(1,1)
     test_sanke = Snake_Node(1,2)
-    test_block.next = test_sanke
     print(test_block)
 
 

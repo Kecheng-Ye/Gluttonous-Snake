@@ -35,7 +35,9 @@ class board:
         self.Fruit_lst = set()
         self.boundary_checker = Bounds_checker(self.width, self.height)
 
-        # initialize the game board array and empty spot 
+        # initialize the game board array and empty spot
+        # # implement your code below
+        # pass 
         for i in range(self.height):
             self.game_board.append([])
             for j in range(self.width):
@@ -63,7 +65,8 @@ class board:
         Args: 
              snake_init_coordinates(tuple[int]):    optional arguments to manually initialize the sanke coordinate instead of random choice from the `empty_spot`   
         """
-        
+        # # implement your code below
+        # pass
         # if there has no given snake initialization coordinates
         if not snake_init_coordinates:
             # we will get the coordinate from a random choice from `empty_spot`
@@ -86,7 +89,8 @@ class board:
         Args: 
              fruit_init_coordinates(tuple[int]):    optional arguments to manually initialize the fruit coordinate instead of random choice from the `empty_spot`   
         """
-
+        # # implement your code below
+        # pass
         # check function `Snake_initialize` for comments
         if not fruit_init_coordinates:
             fruit_init_h, fruit_init_w = choice(tuple(self.empty_spot))
@@ -120,6 +124,8 @@ class board:
         # initialize a new board
         new_board = [[Empty_Spot(i, j) for j in range(self.width)] for i in range(self.width)]
 
+        # # implement your code below
+        # pass
         # iterate the `Snake` object 
         for snake_node in self.Snake:
             # get every snake node coordinate
@@ -135,6 +141,7 @@ class board:
             self.boundary_checker.Check_coordinate(h, w)
             new_board[h][w] = Fruit_Spot(h, w)
         
+        ## stop here
         # assign the new board to the `game_board`
         self.game_board = new_board
 
@@ -192,7 +199,8 @@ class Snake:
                  head, 
                  end = None,
                  length = 1):
-
+        # # implement your code below
+        # pass
         self.head = head
         self.end = end if end else self.head
         self.iter_temp = self.head
@@ -219,7 +227,8 @@ class Snake:
         The function to access the next node of `iter_temp` node
         if it reach end, then the iteration will end
         """
-
+        # # implement your code below
+        # pass        
         # as long as the `iter_temp` is not None
         if self.iter_temp:
             # there is a valid next element
@@ -239,11 +248,15 @@ class Snake:
         """
         Enable the ```len()``` function for the Snake object
         """
+        # # implement your code below
+        # pass
         return self.length
 
 
     def __str__(self):
-        result = ""
+        # # implement your code below
+        # pass
+        result = "This is a Snake object of length {}\nWith its children in the following order:\n\n".format(self.length)
         for node in self:
             result += node.__str__()
             result += "\n"
@@ -467,7 +480,11 @@ class Snake:
                Eat_fruit(bool):                 Whether this move action make the snake eat any fruit
         """
         
+        assert direction in ['left', 'right', 'up', 'down']
+
         Eat_fruit = False
+        # # implement your code below
+        # pass
         end_h, end_w = self.end.get_coordinates()
         
         # reversely traverse the snake linkedlist
@@ -513,7 +530,7 @@ class Snake:
         
         return Eat_fruit
 
-    def init_from_lst(self, node_list, empty_spot):
+    def init_from_lst(self, node_list, empty_spot=None):
         """
         The function to directly initialize a snake based on the input node list for debug use
 
@@ -524,6 +541,8 @@ class Snake:
              Input->    NodeList = [[0, 0], [0, 1], [0, 2]]
              Output->   Initialize a new Snake object with its head as [0, 0] sequentially connect to node [0, 1], [0, 2]  
         """
+        # # implement your code below
+        # pass
         self.head = None
         self.end = None
         self.length = len(node_list)
@@ -537,7 +556,7 @@ class Snake:
             else:
                 prev.connect(temp_node)
 
-            if temp_node.get_coordinates() in empty_spot:
+            if empty_spot and temp_node.get_coordinates() in empty_spot:
                 empty_spot.remove(temp_node.get_coordinates())
             prev = temp_node
         

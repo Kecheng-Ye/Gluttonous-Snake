@@ -73,6 +73,16 @@ class Render_engine:
         
         result += "-" * (board.width * 2 + 1)
 
+        # # implement your code below
+        # pass 
+        # result = ""
+
+        # for i in range(board.height):
+            
+        #     for j in range(board.width):
+        #         # invoke each block's render teriminal function
+
+
         print(result)
     
 
