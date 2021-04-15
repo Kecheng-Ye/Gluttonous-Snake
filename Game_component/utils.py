@@ -26,6 +26,7 @@ class Bounds_checker:
         self.width = w_limit
         self.height = h_limit
 
+
     def Check_coordinate(self, h, w, raise_warning=True, error_message = None):
         """
         The actual check function

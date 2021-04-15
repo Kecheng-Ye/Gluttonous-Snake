@@ -23,7 +23,7 @@ class Key_listener:
         # the actual listener thread
         self.listener_thread = threading.Thread(target=self.listen, daemon=True)
         # we only accept 4 direction key
-        # the reason for using set instead of list is that 
+        # the reason for using `set` instead of list is that 
         # set can use O(1) time to check whether the item is in itself or not
         self.valid_keys = set([Key.left, Key.right, Key.up, Key.down])
         # hard code some rule for operation
@@ -34,6 +34,7 @@ class Key_listener:
                                    Key.right : Key.left,
                                    Key.down : Key.up}
         self.operation = operation
+
 
     def on_press(self, key):
         """
@@ -58,6 +59,7 @@ class Key_listener:
             # raise another signal to notify the main thread to shut down the game
             os.kill(os.getpid(), signal.SIGUSR2)
 
+
     def on_release(self, key):
         """
         The call back function for key released event
@@ -65,6 +67,7 @@ class Key_listener:
         do nothing
         """
         pass
+
 
     def listen(self):
         """
@@ -75,11 +78,13 @@ class Key_listener:
         with Listener(on_press=self.on_press, on_release=self.on_release) as listener:
             listener.join()
 
+
     def start(self):
         """
         Start the thread
         """
         self.listener_thread.start()
+    
     
     def join(self):
         """

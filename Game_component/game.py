@@ -54,6 +54,7 @@ class Glutonous_Snake:
         self.key_listener.start()
         self.render_engine.start()
 
+
     def start(self):
         """
         The start function of the game
@@ -74,6 +75,7 @@ class Glutonous_Snake:
         except GameEnd:
             print("Game end")
     
+
     def update(self, num = None, stack = None):
         """
         update one step for the game board
@@ -101,6 +103,7 @@ class Glutonous_Snake:
         # meaning the game will be more difficult
         time.sleep(0.2)
 
+
     def restart(self):
         """
         Restart function for the game
@@ -111,9 +114,10 @@ class Glutonous_Snake:
         self.game_board.restart()
         self.cur_operation[0] = None
 
+
     def game_end(self, num = None, stack = None):
         """
-        The signal respons function for end the game
+        The signal respons function for ending the game
         """
         raise GameEnd
 

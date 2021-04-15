@@ -75,6 +75,7 @@ class Render_engine:
 
         print(result)
     
+
     def start(self):
         """
         Set the show flag to ``TRUE``
@@ -83,6 +84,7 @@ class Render_engine:
         self.show = True
         self.render_thread.start()
 
+
     def pause(self):
         """
         Set the show flag to ``FALSE``
@@ -90,12 +92,14 @@ class Render_engine:
         """
         self.show = False
 
+
     def restart(self):
         """
         Set the show flag back to ``TRUE``
         and the render engine will continue to render the game board
         """
         self.show = True
+
 
     def is_running(self):
         """
