@@ -58,50 +58,25 @@ class Glutonous_Snake:
     def start(self):
         """
         The start function of the game
+        If `GameBoardIndexError` detected, this round of game will crash, and all the game restart
+        If `GameEnd` detected, the game will be exited
         """
-        try:
-            while(True):
-                try:
-                    # update the game board
-                    self.update()
-                # if one round of game fails
-                except GameBoardIndexError as error:
-                    # pause the game and ask the user to restart or end
-                    print("Snake crash because", str(error))
-                    print("Press Any 'direction key' to restart or 'ESC' to quit the game")
-                    self.restart()
-
-        # if user chooce to end the game
-        except GameEnd:
-            print("Game end")
+        # implement your code below
+        pass
     
 
     def update(self, num = None, stack = None):
         """
         update one step for the game board
+        remeber to `time.sleep()` some seconds after one step to avoid your snake move so fast 
 
         Args: 
               num(int):         The signal id, it is required by the signal function, don't need to care
               stack(object):    Also an object need by the signal function, don't need to care
         """
-        # if the value on the `cur_operation` list is not `None`
-        # meaning we have a valid operation
-        if self.cur_operation[0]:
-            # check the status of render engine
-            # if it is paused, restart it
-            if not self.render_engine.is_running():
-                self.render_engine.restart()
-            
-            # do one move action on the game board
-            move_direction = self.direction_dict[self.cur_operation[0]]
-            self.game_board.Snake_move(move_direction)
-        
-        # update the board
-        self.game_board.Update_board()
-        # TODO: different difficulties should have different time sleep interval
-        # the less time sleep interval is, then the board will update more quickly
-        # meaning the game will be more difficult
-        time.sleep(0.2)
+
+        # implement your code below
+        pass
 
 
     def restart(self):
@@ -110,9 +85,8 @@ class Glutonous_Snake:
 
         Basically it stop the render engine and reinitialize the game board
         """
-        self.render_engine.pause()
-        self.game_board.restart()
-        self.cur_operation[0] = None
+        # implement your code below
+        pass
 
 
     def game_end(self, num = None, stack = None):

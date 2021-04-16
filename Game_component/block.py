@@ -63,27 +63,23 @@ class Empty_Spot(Base_Block):
                  x : int, 
                  y : int):
 
-        # # implement your code below
-        # pass
+        # implement your code below
+        pass
 
-        super(Empty_Spot, self).__init__(x, y)
 
 
     def __str__(self):
-        # # implement your code below
-        # pass
-
-        return "This is a empty spot with coordinate [{}, {}]".format(self.x, self.y)
+        # implement your code below
+        pass
 
 
     def render_terminal(self):
         """
         Specific render method for empty spot
         """
-        # # implement your code below
-        # pass
+        # implement your code below
+        pass
 
-        return " "
 
 class Snake_Node(Base_Block):
     """
@@ -102,30 +98,13 @@ class Snake_Node(Base_Block):
                  y : int,
                  prev = None,
                  next = None):
-        # # implement your code below
-        # pass        
-        super(Snake_Node, self).__init__(x, y)
-        self.prev = prev
-        self.next = next
+        # implement your code below
+        pass        
 
 
     def __str__(self):
-        # # implement your code below
-        # pass
-        prev_x, prev_y, next_x, next_y = [None] * 4
-
-        if self.prev:
-            prev_x, prev_y = self.prev.get_coordinates() 
-        
-        if self.next:
-            next_x, next_y = self.next.get_coordinates()
-
-
-        result = "This is a snake node with coordinate [{}, {}]\n".format(self.x, self.y)
-        result += "With its prev snake of [{}, {}]\n".format(prev_x, prev_y)
-        result += "And its next snake of [{}, {}]".format(next_x, next_y)
-
-        return result
+        # implement your code below
+        pass
 
 
     def connect(self, another_node):
@@ -136,19 +115,16 @@ class Snake_Node(Base_Block):
         Args: 
               another_node(Snake_Node): the node that will be connected to the tail of this node
         """
-        # # implement your code below
-        # pass
-        self.next = another_node
-        another_node.prev = self
+        # implement your code below
+        pass
 
 
     def render_terminal(self):
         """
         Specific render method for snake spot
         """
-        # # implement your code below
-        # pass
-        return "S"
+        # implement your code below
+        pass
 
 class Fruit_Spot(Base_Block):
     """
@@ -161,24 +137,21 @@ class Fruit_Spot(Base_Block):
     def __init__(self, 
                  x : int, 
                  y : int):
-        # # implement your code below
-        # pass
-        super(Fruit_Spot, self).__init__(x, y)
+        # implement your code below
+        pass
 
 
     def __str__(self):
-        # # implement your code below
-        # pass
-        return "This is a fruit spot with coordinate [{}, {}]".format(self.x, self.y)
+        # implement your code below
+        pass
 
 
     def render_terminal(self):
-        # # implement your code below
-        # pass
         """
         Specific render method for snake spot
         """
-        return "X"
+        # implement your code below
+        pass
 
 if __name__ == "__main__":
     test_block = Snake_Node(1,1)

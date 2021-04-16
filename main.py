@@ -293,29 +293,321 @@ class Problem:
 
     
     def phase_7(self):
-        
+        """
+        Expect Output
+
+        ```{shell}
+        Before grow
+        *******************************
+        -----------
+        |    X    |
+        |         |
+        |         |
+        |         |
+        |    S    |
+        -----------
+        Now, Snake's length is 1
+
+
+        after grow once
+        *******************************
+        -----------
+        |    X    |
+        |         |
+        |         |
+        |         |
+        |  S S    |
+        -----------
+        Now, Snake's length is 2
+
+
+        after grow twice
+        *******************************
+        -----------
+        |    X    |
+        |         |
+        |         |
+        |         |
+        |S S S    |
+        -----------
+        Now, Snake's length is 3
+
+
+        after grow three times
+        *******************************
+        -----------
+        |    X    |
+        |         |
+        |         |
+        |S        |
+        |S S S    |
+        -----------
+        Now, Snake's length is 4
+        ```
+        """
+
         test_board_1 = board(5, 5, snake_init_coordinates = [4, 2], fruit_init_coordinates = [0, 2])
         render = Render_engine('terminal', test_board_1)
         print("Before grow")
         print("*******************************")
         render.render_terminal(test_board_1)
+        print("Now, Snake's length is {}".format(len(test_board_1.Snake)))
+
         print("\n\nafter grow once")
         print("*******************************")
         test_board_1.Snake_grow("right")
         test_board_1.Update_board()
         render.render_terminal(test_board_1)
+        print("Now, Snake's length is {}".format(len(test_board_1.Snake)))
+
         print("\n\nafter grow twice")
         print("*******************************")
         test_board_1.Snake_grow("right")
         test_board_1.Update_board()
         render.render_terminal(test_board_1)
+        print("Now, Snake's length is {}".format(len(test_board_1.Snake)))
+
         print("\n\nafter grow three times")
         print("*******************************")
         test_board_1.Snake_grow("right")
         test_board_1.Update_board()
         render.render_terminal(test_board_1)
+        print("Now, Snake's length is {}".format(len(test_board_1.Snake)))
 
 
+    def phase_8(self):
+        """
+        Expect Output
+
+        ```{shell}
+        Before move
+        *******************************
+        -----------
+        |    X    |
+        |         |
+        |         |
+        |         |
+        |    S    |
+        -----------
+
+
+        after move right
+        *******************************
+        -----------
+        |    X    |
+        |         |
+        |         |
+        |         |
+        |      S  |
+        -----------
+
+
+        after move up
+        *******************************
+        -----------
+        |    X    |
+        |         |
+        |         |
+        |      S  |
+        |         |
+        -----------
+
+
+        after move right
+        *******************************
+        -----------
+        |    X    |
+        |         |
+        |         |
+        |        S|
+        |         |
+        -----------
+        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+        Before move
+        *******************************
+        -----------
+        |      S S|
+        |        S|
+        |        S|
+        |  S X   S|
+        |  S S S S|
+        -----------
+
+
+        After move right
+        *******************************
+        -----------
+        |      S S|
+        |    X   S|
+        |        S|
+        |  S S   S|
+        |  S S S S|
+        -----------
+        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+        Before move
+        *******************************
+        -----------
+        |         |
+        |    X    |
+        |         |
+        |      S S|
+        |         |
+        -----------
+
+
+        After move right
+        *******************************
+        Snake crash because Snake crash on boundary
+        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+        Before move
+        *******************************
+        -----------
+        |      S S|
+        |    X   S|
+        |        S|
+        |  S S S S|
+        |  S S S S|
+        -----------
+
+
+        After move right
+        *******************************
+        Snake crash because Snake eat itself
+        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        ```
+        """
+
+        def problem_1():
+            test_board_1 = board(5, 5, snake_init_coordinates = [4, 2], fruit_init_coordinates = [0, 2])
+            render = Render_engine('terminal', test_board_1)
+
+            print("Before move")
+            print("*******************************")
+            render.render_terminal(test_board_1)
+
+            print("\n\nafter move right")
+            print("*******************************")
+            test_board_1.Snake_move("right")
+            test_board_1.Update_board()
+            render.render_terminal(test_board_1)
+
+            print("\n\nafter move up")
+            print("*******************************")
+            test_board_1.Snake_move("up")
+            test_board_1.Update_board()
+            render.render_terminal(test_board_1)
+
+            print("\n\nafter move right")
+            print("*******************************")
+            test_board_1.Snake_move("right")
+            test_board_1.Update_board()
+            render.render_terminal(test_board_1)
+            print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n")
+            
+        def problem_2():
+            test_board_1 = board(5, 5, snake_init_coordinates = [3, 1], fruit_init_coordinates = [3, 2])
+            test_board_1.Snake_init_from_lst([[3, 1], [4, 1], [4, 2], [4, 3], [4, 4], [3, 4], [2, 4], [1, 4], [0, 4], [0, 3]])
+            test_board_1.Update_board()
+            render = Render_engine('terminal', test_board_1)
+            print("Before move")
+            print("*******************************")
+            render.render_terminal(test_board_1)
+
+            print("\n\nAfter move right")
+            print("*******************************")
+            test_board_1.Snake_move("right")
+            test_board_1.Update_board()
+            render.render_terminal(test_board_1)
+            print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n")
+
+        def problem_3():
+            try:
+                test_board_1 = board(5, 5, snake_init_coordinates = [3, 1], fruit_init_coordinates = [1, 2])
+                test_board_1.Snake_init_from_lst([[3,4], [3, 3]])
+                test_board_1.Update_board()
+                render = Render_engine('terminal', test_board_1)
+                print("Before move")
+                print("*******************************")
+                render.render_terminal(test_board_1)
+
+                print("\n\nAfter move right")
+                print("*******************************")
+                test_board_1.Snake_move("right")
+                test_board_1.Update_board()
+                render.render_terminal(test_board_1)
+            except GameBoardIndexError as error:
+                    print("Snake crash because", str(error))
+
+            print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n")
+            
+        def problem_4():
+            try:
+                test_board_1 = board(5, 5, snake_init_coordinates = [3, 1], fruit_init_coordinates = [1, 2])
+                test_board_1.Snake_init_from_lst([[3, 3], [3, 2], [3, 1], [4, 1], [4, 2], [4, 3], [4, 4], [3, 4], [2, 4], [1, 4], [0, 4], [0, 3]])
+                test_board_1.Update_board()
+                render = Render_engine('terminal', test_board_1)
+                print("Before move")
+                print("*******************************")
+                render.render_terminal(test_board_1)
+
+                print("\n\nAfter move right")
+                print("*******************************")
+                test_board_1.Snake_move("right")
+                test_board_1.Update_board()
+                render.render_terminal(test_board_1)
+            except GameBoardIndexError as error:
+                    print("Snake crash because", str(error))
+
+            print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n")
+
+        problem_1()
+        problem_2()
+        problem_3()
+        problem_4()
+
+    
+    def phase_9(self):
+
+        def Keyboard_signal(num = None, stack = None):
+            print("There is valid keyboard operation come from keyboard listener!!")
+
+        # initialize different classes
+        test_board_1 = board(5, 5, snake_init_coordinates = [3, 1], fruit_init_coordinates = [1, 2])
+        # this is the list that will record any valid key board operation reported by the Keyboard listener
+        # it has only length 1, so it will only record one operation
+        # once there is another operation, the previous one will be replaced
+        current_keyboard_operation  = [None]
+        key_listener   = Key_listener(current_keyboard_operation)
+        # once we have recored a valid keyboard operation from the keyboard listener
+        # there will be a signal sent from the key_listener thread to the main thread
+        # and then function `Keyboard_signal` will be automatically called when the main thread catch this
+        # signal
+        self.keyboard_signal = signal.signal(signal.SIGUSR1, Keyboard_signal)
+        
+        render_engine  = Render_engine("terminal", test_board_1, refresh_rate=1)
+
+        key_listener.start()
+        render_engine.start()
+
+        # we can see even if the main thread is only executing the following loop
+        # our computer can still multi-task the `key_listener` and `render_engine`
+        for i in range(100):
+            print("Now the content in current_keyboard_operation is", current_keyboard_operation)
+            time.sleep(1)
+
+
+    def phase_10(self):
+        game = Glutonous_Snake(20, 20)
+        game.start()
+
+
+    
 
 
 def parse_args():

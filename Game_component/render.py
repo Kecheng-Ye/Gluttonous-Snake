@@ -10,8 +10,10 @@ class Render_engine:
     Args: 
          render_platform(str) : the platform that our render engine will render the game board on
          game_board(board)    : the actual game board
+         refresh_rate(float)  : How long will the engine refresh rendering, the less the time is,
+                                Then the engine will render the game board more often
     """
-    def __init__(self, render_platform, game_board):
+    def __init__(self, render_platform, game_board, refresh_rate = 0.01):
         assert render_platform in ['terminal']
         
         self.render_platform = render_platform
@@ -20,6 +22,7 @@ class Render_engine:
         self.show = False
         # the actual render thread which will execute the `self.render` function
         self.render_thread = threading.Thread(target=self.render, daemon=True)
+        self.refresh_rate = refresh_rate
 
 
     def render(self):
@@ -33,7 +36,7 @@ class Render_engine:
                 # then the engine will render the board into specific platform
                 # in every 0.01 sec
                 render_function(self.game_board)
-                time.sleep(0.01)
+                time.sleep(self.refresh_rate)
 
 
     def render_terminal(self, board):
