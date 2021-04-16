@@ -174,7 +174,7 @@ python main.py --phase 5
   * 这个函数是为了后续debug的便利
 * 运行阶段六任务
 ```{bash}
-python main.py --phase 5
+python main.py --phase 6
 
 # expect output
 -----------
@@ -221,4 +221,21 @@ And its next snake of [0, 3]
 This is a snake node with coordinate [0, 3]
 With its prev snake of [0, 4]
 And its next snake of [None, None]
+```
+
+### 阶段七任务
+* 实现`Game_component/board.py`的`Snake`类中`grow`这个函数
+  * 注意阅读函数中的注释，实现另外的一些必要函数
+* 运行阶段七任务
+```{bash}
+python main.py --phase 7
+
+# expect output
+-----------
+|X        |
+|  S      |
+|         |
+|         |
+|         |
+-----------
 ```

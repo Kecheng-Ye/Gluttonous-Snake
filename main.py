@@ -234,7 +234,7 @@ class Problem:
         """
         Expect Output
         
-        ```
+        ```{shell}
         -----------
         |      S S|
         |        S|
@@ -291,7 +291,31 @@ class Problem:
         print("*******************************")
         print(test_board_1.Snake)
 
+    
+    def phase_7(self):
         
+        test_board_1 = board(5, 5, snake_init_coordinates = [4, 2], fruit_init_coordinates = [0, 2])
+        render = Render_engine('terminal', test_board_1)
+        print("Before grow")
+        print("*******************************")
+        render.render_terminal(test_board_1)
+        print("\n\nafter grow once")
+        print("*******************************")
+        test_board_1.Snake_grow("right")
+        test_board_1.Update_board()
+        render.render_terminal(test_board_1)
+        print("\n\nafter grow twice")
+        print("*******************************")
+        test_board_1.Snake_grow("right")
+        test_board_1.Update_board()
+        render.render_terminal(test_board_1)
+        print("\n\nafter grow three times")
+        print("*******************************")
+        test_board_1.Snake_grow("right")
+        test_board_1.Update_board()
+        render.render_terminal(test_board_1)
+
+
 
 
 def parse_args():

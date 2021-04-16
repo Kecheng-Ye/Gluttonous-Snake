@@ -352,7 +352,8 @@ class Snake:
        4 |         |
          -----------
         """
-
+        # # implement your code below
+        # pass
         # The length > 1 condition
         if self.head != self.end:
             end = self.end
