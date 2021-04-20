@@ -149,7 +149,8 @@ class Problem:
               while the two random choice part can be different than the output as long as the 
               two board you generate shows some form of randomness
 
-        ```
+
+        ```{bash}
         Testing with given coordinate
         *******************************
         Detect None Empty Spot on the game_board

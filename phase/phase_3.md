@@ -1,7 +1,7 @@
 ### 阶段三任务
 * 阅读`Game_component/board.py`代码中`Snake`这个类的相关注释
 * 实现`Snake`类，其本质是一个**doublely-linkedlist**
-  * 其中，自己实现一个python的迭代器，[参考网址]([Game_component/board.py](https://www.runoob.com/python3/python3-iterator-generator.html))
+  * 其中，自己实现一个python的迭代器，[参考网址](https://www.runoob.com/python3/python3-iterator-generator.html)
   * 暂时不需要实现`Snake`中`grow`,`random_grow`以及`move`这三个函数
 * 运行阶段三任务
 ```{bash}
