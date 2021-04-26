@@ -1,4 +1,4 @@
-from Game_component.board import *
+from Game_componentboard import *
 import threading
 import time
 
@@ -61,22 +61,17 @@ class Render_engine:
         The `Snake` is denoted with letter `S`
         and the `Fruit` is shown as `X`
         """
-        result = "-" * (board.width * 2 + 1) + "\n"
+        # implement your code below
+        result = ""
 
         for i in range(board.height):
-            result += "|"
+            
             for j in range(board.width):
                 # invoke each block's render teriminal function
-                result += board.game_board[i][j].render_terminal()
-                # if reach end of the row, we don't need to add extra space
-                if j < board.width - 1:
-                    result += " "
-            
-            result += "|\n"
-        
-        result += "-" * (board.width * 2 + 1)
+                pass
+
         print(result)
-    
+        pass 
 
     def start(self):
         """
@@ -111,9 +106,8 @@ class Render_engine:
 
 
 if __name__ == "__main__":
-    engine = Render_engine('terminal', None)
+    engine = Render_engine()
     board = board(5, 5, snake_init_coordinates = [3, 1], fruit_init_coordinates = [3, 2])
-    print(board.Snake)
     # board.Fruit_lst = [(1, 2)]
     # board.Update_board()
     # engine.render_terminal(board)
@@ -141,9 +135,9 @@ if __name__ == "__main__":
     # engine.render_terminal(board)
     # print(len(board.empty_spot))
 
-    # board.Snake_init_from_lst([[3, 1], [4, 1], [4, 2], [4, 3], [4, 4], [3, 4], [2, 4], [1, 4], [0, 4], [0, 3]])
-    # board.Update_board()
-    # engine.render_terminal(board)
-    # board.Snake_move("right")
-    # board.Update_board()
-    # engine.render_terminal(board)
+    board.Snake_init_from_lst([[3, 1], [4, 1], [4, 2], [4, 3], [4, 4], [3, 4], [2, 4], [1, 4], [0, 4], [0, 3]])
+    board.Update_board()
+    engine.render_terminal(board)
+    board.Snake_move("right")
+    board.Update_board()
+    engine.render_terminal(board)
