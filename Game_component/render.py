@@ -1,4 +1,4 @@
-from Game_componentboard import *
+from Game_component.board import *
 import threading
 import time
 
