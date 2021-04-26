@@ -1,7 +1,7 @@
 from random import choice
 
-from .block import *
-from .utils import *
+from Game_component.block import *
+from Game_component.utils import *
 
 class board:
     """

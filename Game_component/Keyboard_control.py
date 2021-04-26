@@ -4,7 +4,7 @@ import threading
 
 from pynput.keyboard import Key, Listener
 
-from .utils import *
+from Game_component.utils import *
 
 
 class Key_listener:

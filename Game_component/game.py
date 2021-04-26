@@ -2,9 +2,9 @@ import time
 from datetime import datetime
 from pysigset import suspended_signals
 
-from .board import *
-from .Keyboard_control import *
-from .render import *
+from Game_component.board import *
+from Game_component.Keyboard_control import *
+from Game_component.render import *
 
 
 class Glutonous_Snake:
