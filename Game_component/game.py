@@ -11,7 +11,7 @@ class Glutonous_Snake:
     """
     The main game class
 
-    The game will be exectuted along with ``3`` threads
+    The game will be executed along with ``3`` threads
     1. The `main thread` which is the game thread mainly concerned with our game board
     2. The `keyboard listener thread` which will catch any keyboard signal and write the valid keyboard opeartion onto the ``cur_operation`` list,
        then the main thread will change the game board state based on this operation
@@ -39,7 +39,7 @@ class Glutonous_Snake:
                                             once this signal has been detected, the `self.game_end` function will automatically executed
     """
     def __init__(self, width, height):
-        self.game_board     = board(width, width)
+        self.game_board     = board(width, height)
         self.render_engine  = Render_engine("terminal", self.game_board)
         self.cur_operation  = [None]
         self.key_listener   = Key_listener(self.cur_operation)
